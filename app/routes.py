@@ -1,6 +1,6 @@
 from app import db
 from app.models.planet import Planet
-from flask import request, Blueprint, make_response
+from flask import request, Blueprint, make_response, jsonify
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
 
@@ -26,12 +26,12 @@ def handle_planets():
         for planet in planets:
             planets_response.append({
                 "id": planet.id,
-                "title": planet.title,
-                "description": planet.description
+                "name": planet.name,
+                "description": planet.description,
                 "distance from Earth": planet.distance_from_earth
             })
 
-        return jsonify(planets_response)
+        return jsonify(planets_response), 201
 
     elif request.method == "POST":
         request_body = request.get_json()
