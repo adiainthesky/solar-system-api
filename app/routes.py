@@ -5,16 +5,16 @@ from flask import request, Blueprint, make_response, jsonify
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
 
 
-# @planets_bp.route("/<planet_id>", methods=["GET"])
-# def handle_planet(planet_id):
-#     planet = Planet.query.get(planet_id)
+@planets_bp.route("/<planet_id>", methods=["GET"])
+def handle_planet(planet_id):
+    planet = Planet.query.get(planet_id)
 
-#     return {
-#         "id": planet.id,
-#         "title": planet.title,
-#         "description": planet.description
-#         "distance from Earth": planet.distance_from_earth
-#     }
+    return {
+        "id": planet.id,
+        "name": planet.name,
+        "description": planet.description,
+        "distance from Earth": planet.distance_from_earth
+    }
 
 
 @planets_bp.route("", methods=["GET", "POST"])
