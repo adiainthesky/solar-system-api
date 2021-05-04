@@ -5,16 +5,29 @@ from flask import request, Blueprint, make_response, jsonify
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
 
 
-@planets_bp.route("/<planet_id>", methods=["GET"])
+@planets_bp.route("/<planet_id>", methods=["GET", "PUT"])
 def handle_planet(planet_id):
     planet = Planet.query.get(planet_id)
+    if request.method == "GET":
+        return {
+            "id": planet.id,
+            "name": planet.name,
+            "description": planet.description,
+            "distance from Earth": planet.distance_from_earth
+        }
 
-    return {
-        "id": planet.id,
-        "name": planet.name,
-        "description": planet.description,
-        "distance from Earth": planet.distance_from_earth
-    }
+    elif request.method == "PUT":
+            
+        form_data = request.get_json()
+
+        planet.name = form_data["name"]
+        planet.description = form_data["description"]
+        planet.distance_from_earth = form_data["distance from Earth"]
+
+        db.session.commit()
+
+        return jsonify(f"Planet #{planet.id} successfully updated") 
+
 
 
 @planets_bp.route("", methods=["GET", "POST"])
