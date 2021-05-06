@@ -16,3 +16,10 @@ def test_get_planet(create_a_planet, client):
         "description":"home",
         "distance from Earth":0
         }
+
+def test_get_planet_empty(client):
+    response = client.get("/planets/1")
+    response_body = response.get_json()
+
+    assert response.status_code == 404
+    assert response_body == None
