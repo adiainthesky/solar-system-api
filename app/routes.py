@@ -53,7 +53,7 @@ def handle_planets():
                 "distance from Earth": planet.distance_from_earth
             })
 
-        return jsonify(planets_response), 201
+        return jsonify(planets_response), 200
 
     elif request.method == "POST":
         request_body = request.get_json()
