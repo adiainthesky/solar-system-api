@@ -26,3 +26,12 @@ def create_a_planet(app):
 
     db.session.add_all([Earth])
     db.session.commit()
+
+# @pytest.fixture
+# def post_a_planet(app):
+#     Earth = Planet(name="Earth",
+#                       description="home",
+#                       distance_from_earth=0)
+
+#     db.session.add_all([Earth])
+#     db.session.commit()

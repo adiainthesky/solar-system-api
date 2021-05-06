@@ -35,3 +35,15 @@ def test_get_planets(create_a_planet, client):
         "description":"home",
         "distance from Earth":0
         }]
+
+def test_post_new_planet(client):
+    new_planet={
+        "name": "Earth",
+        "description": "home",
+        "distance from Earth": 0
+    }
+    response = client.post("/planets", json=new_planet)
+    response_body = response.get_json()
+
+    assert response.status_code == 201
+ 
